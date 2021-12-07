@@ -28,7 +28,8 @@ namespace KyuTerm
     {
         StreamWriter writer = null;
         string filename = DateTime.Now.ToString("yyyyMMdd") + "_test.txt";
-        const int maxLines = 1000;
+        const int minLines = 512;
+        const int maxLines = 1024;
         static SerialPort serialPort;
 
         public MainWindow()
@@ -66,17 +67,20 @@ namespace KyuTerm
             {
                 StringCollection lines = new StringCollection();
 
+                Terminal.AppendText(System.Text.Encoding.Default.GetString(buffer));
+
                 // Makes sure data stored in RAM never exceeds maxLines
                 int lineCount = Terminal.LineCount;
                 if (Terminal.LineCount > maxLines)
                 {
-                    for (int line = 1; line < lineCount; line++)
+                    for (int line = lineCount - minLines; line < lineCount; line++)
                         lines.Add(Terminal.GetLineText(line));
                     Terminal.Clear();
-                    for (int line = 1; line < lineCount; line++)
-                        Terminal.AppendText(lines[line - 1]);
+                    foreach (string line in lines)
+                    {
+                        Terminal.AppendText(line);
+                    }
                 }
-                Terminal.AppendText(System.Text.Encoding.Default.GetString(buffer));
                 Terminal.ScrollToEnd();
                 if (writer != null)
                 {

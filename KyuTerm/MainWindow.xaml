@@ -17,7 +17,7 @@
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="Terminal" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" Margin="10,0,10,0" Foreground="#FFDEDEDE" Background="Black" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsUndoEnabled="False" Grid.ColumnSpan="3" AcceptsReturn="True" AcceptsTab="True" />
+        <TextBox x:Name="Terminal" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" Margin="10,0,10,0" Foreground="#FFDEDEDE" Background="Black" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsUndoEnabled="False" Grid.ColumnSpan="3" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" />
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Margin="10,0,10,0">
             <TextBlock TextWrapping="Wrap" Text="Hex. command:"/>
