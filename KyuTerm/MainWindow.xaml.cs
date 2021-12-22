@@ -40,8 +40,8 @@ namespace KyuTerm
 
             // Recover a list of current COM ports
             string[] ports = SerialPort.GetPortNames();
-            Array.Sort(ports);
-            foreach (string port in ports)
+            var portsOrdered = ports.OrderBy(port => Convert.ToInt32(port.Replace("COM", string.Empty)));
+            foreach (string port in portsOrdered)
             {
                 PortComboBox.Items.Add(port);
             }
