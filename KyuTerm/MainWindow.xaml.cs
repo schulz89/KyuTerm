@@ -74,6 +74,7 @@ namespace KyuTerm
                 {
                     String message_print = BitConverter.ToString(buffer).Replace("-", "");
                     Terminal.AppendText(message_print);
+                    Terminal.AppendText("\n");
                 }
 
                 // Makes sure data stored in RAM never exceeds maxLines
@@ -99,6 +100,7 @@ namespace KyuTerm
                     {
                         String message_print = BitConverter.ToString(buffer).Replace("-", "");
                         writer.Write(message_print);
+                        writer.Write("\n");
                     }
                     writer.Flush();
                 }
