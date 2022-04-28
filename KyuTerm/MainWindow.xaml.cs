@@ -66,8 +66,15 @@ namespace KyuTerm
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 StringCollection lines = new StringCollection();
-
-                Terminal.AppendText(System.Text.Encoding.Default.GetString(buffer));
+                if(CheckBoxHexMode.IsChecked == false)
+                {
+                    Terminal.AppendText(System.Text.Encoding.Default.GetString(buffer));
+                }
+                else
+                {
+                    String message_print = BitConverter.ToString(buffer).Replace("-", "");
+                    Terminal.AppendText(message_print);
+                }
 
                 // Makes sure data stored in RAM never exceeds maxLines
                 int lineCount = Terminal.LineCount;
@@ -84,7 +91,15 @@ namespace KyuTerm
                 Terminal.ScrollToEnd();
                 if (writer != null)
                 {
-                    writer.Write(System.Text.Encoding.Default.GetString(buffer));
+                    if (CheckBoxHexMode.IsChecked == false)
+                    {
+                        writer.Write(System.Text.Encoding.Default.GetString(buffer));
+                    }
+                    else
+                    {
+                        String message_print = BitConverter.ToString(buffer).Replace("-", "");
+                        writer.Write(message_print);
+                    }
                     writer.Flush();
                 }
             }));
@@ -190,6 +205,16 @@ namespace KyuTerm
             {
                 MessageBox.Show("The serial connection is not open.");
             }
+        }
+
+        private void CheckBoxHexMode_Checked(object sender, RoutedEventArgs e)
+        {
+            Terminal.Clear();
+        }
+
+        private void CheckBoxHexMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Terminal.Clear();
         }
     }
 }

@@ -20,8 +20,10 @@
         <TextBox x:Name="Terminal" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" Margin="10,0,10,0" Foreground="#FFDEDEDE" Background="Black" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsUndoEnabled="False" Grid.ColumnSpan="3" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" />
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Margin="10,0,10,0">
-            <TextBlock TextWrapping="Wrap" Text="Hex. command:"/>
+            <CheckBox x:Name="CheckBoxHexMode" Content="Hex mode" Checked="CheckBoxHexMode_Checked" Unchecked="CheckBoxHexMode_Unchecked" />
+            <TextBlock TextWrapping="Wrap" Text="Hex. command:" Margin="0,5,0,0"/>
             <TextBox x:Name="CommandTextBox" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" IsUndoEnabled="True" AcceptsReturn="False" AcceptsTab="False" KeyDown="TextBox_KeyDown" PreviewTextInput="TextBox_PreviewTextInput_IsHex" CharacterCasing="Upper"/>
+
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Height="52" Width="417">
@@ -38,6 +40,6 @@
                 <Button x:Name="OpenCloseButton" Content="Open" Margin="10,0,0,0" Width="40" Click="OpenCloseButton_Click"/>
             </StackPanel>
         </StackPanel>
-        <Button x:Name="CommandSendButton" Content="Send" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="2,33,12,0" Height="20" Click="CommandSendButton_Click"/>
+        <Button x:Name="CommandSendButton" Content="Send" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="2,43,12,0" Height="20" Click="CommandSendButton_Click"/>
     </Grid>
 </Window>
