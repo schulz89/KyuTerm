@@ -38,10 +38,15 @@ namespace KyuTerm
             serialPort = new SerialPort();
             serialPort.DataReceived += OnDataReceived;
 
+            PopulateComPortList();
+        }
+
+        private void PopulateComPortList()
+        {
             // Recover a list of current COM ports
+            PortComboBox.Items.Clear();
             string[] ports = SerialPort.GetPortNames();
-            var portsOrdered = ports.OrderBy(port => Convert.ToInt32(port.Replace("COM", string.Empty)));
-            foreach (string port in portsOrdered)
+            foreach (string port in ports)
             {
                 PortComboBox.Items.Add(port);
             }
@@ -215,6 +220,11 @@ namespace KyuTerm
         private void CheckBoxHexMode_Unchecked(object sender, RoutedEventArgs e)
         {
             Terminal.Clear();
+        }
+
+        private void PortComboBox_DropDownOpened(object sender, EventArgs e)
+        {
+            PopulateComPortList();
         }
     }
 }

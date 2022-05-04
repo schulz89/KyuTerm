@@ -34,7 +34,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  Margin="0,10,0,0">
                 <TextBlock TextWrapping="Wrap" Text="Serial port:" Width="57"/>
-                <ComboBox x:Name="PortComboBox" Width="111" Margin="10,0,0,0"/>
+                <ComboBox x:Name="PortComboBox" Width="111" Margin="10,0,0,0" DropDownOpened="PortComboBox_DropDownOpened"/>
                 <TextBlock TextWrapping="Wrap" Text="Baud rate:" Width="57" Margin="10,0,0,0"/>
                 <TextBox x:Name="BaudTextBox" TextWrapping="NoWrap" Text="9600" Width="112" Margin="10,0,0,0"/>
                 <Button x:Name="OpenCloseButton" Content="Open" Margin="10,0,0,0" Width="40" Click="OpenCloseButton_Click"/>
