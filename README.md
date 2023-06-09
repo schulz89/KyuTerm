@@ -1,7 +1,7 @@
 KyuTerm
 ==============================================================
 
-This is minimalist serial terminal designed to debug small satellites.
+This is a minimalist serial terminal designed to debug small satellites.
 
 Feature set
 --------------------------------------------------------------
