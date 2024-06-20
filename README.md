@@ -10,11 +10,12 @@ Feature set
 * Automatic detection of COM ports
 * Send plain commands in hexadecimal
 * Output toggle to display ascii or raw hexadecimal
+* Automatic monitor and insert hex commands from the clipboard
 
 Compilation
 --------------------------------------------------------------
 
-The project was made using Visual Studio 2022 and .NET framework 4.8.
+The project was made using Visual Studio 2022 and .NET framework 4.8.1.
 
 License
 --------------------------------------------------------------
