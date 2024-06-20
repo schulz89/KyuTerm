@@ -35,6 +35,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 namespace KyuTerm
 {
@@ -245,18 +246,27 @@ namespace KyuTerm
 
         private void ClipboardTimer_Tick(object sender, EventArgs e)
         {
-            CheckClipboardForHexPattern();
+            if (autoInsert) {
+                CheckClipboardForHexPattern();
+            }
         }
 
         private void CheckClipboardForHexPattern()
         {
-            if (Clipboard.ContainsText())
+            try
             {
-                string clipboardText = Clipboard.GetText();
-                if (autoInsert && IsHexPattern(clipboardText))
+                if (Clipboard.ContainsText())
                 {
-                    CommandTextBox.Text = clipboardText;
+                    string clipboardText = Clipboard.GetText();
+                    if (IsHexPattern(clipboardText))
+                    {
+                        CommandTextBox.Text = clipboardText;
+                    }
                 }
+            }
+            catch (COMException ex) when ((uint)ex.HResult == 0x800401D3)
+            {
+                // Clipboard data is invalid, ignore the exception
             }
         }
 
