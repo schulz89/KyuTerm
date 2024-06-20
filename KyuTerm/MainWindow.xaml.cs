@@ -139,6 +139,7 @@ namespace KyuTerm
             {
                 writer = null;
             }
+            filename = DateTime.Now.ToString("yyyyMMdd") + "_test.txt";
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             saveFileDialog.FileName = filename;
