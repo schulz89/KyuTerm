@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -48,12 +49,17 @@ namespace KyuTerm
         const int minLines = 512;
         const int maxLines = 1024;
         static SerialPort serialPort;
+        bool autoInsert = false;
+        private DispatcherTimer clipboardTimer;
 
         public MainWindow()
         {
             InitializeComponent();
             serialPort = new SerialPort();
             serialPort.DataReceived += OnDataReceived;
+
+            InitializeComponent();
+            SetupClipboardMonitor();
 
             PopulateComPortList();
         }
@@ -228,6 +234,38 @@ namespace KyuTerm
                 MessageBox.Show("The serial connection is not open.");
             }
         }
+        private void SetupClipboardMonitor()
+        {
+            clipboardTimer = new DispatcherTimer();
+            clipboardTimer.Interval = TimeSpan.FromSeconds(1); // Check every second
+            clipboardTimer.Tick += ClipboardTimer_Tick;
+            clipboardTimer.Start();
+        }
+
+        private void ClipboardTimer_Tick(object sender, EventArgs e)
+        {
+            CheckClipboardForHexPattern();
+        }
+
+        private void CheckClipboardForHexPattern()
+        {
+            if (Clipboard.ContainsText())
+            {
+                string clipboardText = Clipboard.GetText();
+                if (autoInsert && IsHexPattern(clipboardText))
+                {
+                    CommandTextBox.Text = clipboardText;
+                }
+            }
+        }
+
+        private bool IsHexPattern(string input)
+        {
+            // Pattern to match a hexadecimal string with or without spaces
+            string pattern = @"^(([0-9A-Fa-f]{2}(\s)*)+)$";
+            // Ensure the number of non-space characters is even
+            return Regex.IsMatch(input, pattern) && input.Replace(" ", "").Length % 2 == 0;
+        }
 
         private void CheckBoxHexMode_Checked(object sender, RoutedEventArgs e)
         {
@@ -242,6 +280,16 @@ namespace KyuTerm
         private void PortComboBox_DropDownOpened(object sender, EventArgs e)
         {
             PopulateComPortList();
+        }
+
+        private void CheckBoxAutoInsert_Checked(object sender, RoutedEventArgs e)
+        {
+            autoInsert = true;
+        }
+
+        private void CheckBoxAutoInsert_Unchecked(object sender, RoutedEventArgs e)
+        {
+            autoInsert = false;
         }
     }
 }

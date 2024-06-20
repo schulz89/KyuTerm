@@ -6,40 +6,37 @@
         xmlns:local="clr-namespace:KyuTerm"
         mc:Ignorable="d"
         Title="KyuTerm" Height="450" Width="800" Closed="WindowClosed">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="47"/>
-            <ColumnDefinition Width="439"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="70"/>
-        </Grid.RowDefinitions>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="544"/>
+			<ColumnDefinition Width="65"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="60"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="40"/>
+			<RowDefinition Height="32"/>
+		</Grid.RowDefinitions>
 
-        <TextBox x:Name="Terminal" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" Margin="10,0,10,0" Foreground="#FFDEDEDE" Background="Black" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsUndoEnabled="False" Grid.ColumnSpan="3" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" />
+		<TextBox x:Name="Terminal" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" Margin="10,0,10,0" Foreground="#FFDEDEDE" Background="Black" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" IsUndoEnabled="False" Grid.ColumnSpan="4" AcceptsReturn="True" AcceptsTab="True" IsReadOnly="True" />
 
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Margin="10,0,10,0">
-            <CheckBox x:Name="CheckBoxHexMode" Content="Hex mode" Checked="CheckBoxHexMode_Checked" Unchecked="CheckBoxHexMode_Unchecked" HorizontalAlignment="Left" />
-            <TextBlock TextWrapping="Wrap" Text="Hex. command:"/>
-            <TextBox x:Name="CommandTextBox" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" IsUndoEnabled="True" AcceptsReturn="False" AcceptsTab="False" KeyDown="TextBox_KeyDown" PreviewTextInput="TextBox_PreviewTextInput_IsHex" CharacterCasing="Upper"/>
+		<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1"  Margin="10,10,10,10">
+			<TextBlock TextWrapping="Wrap" Text="Serial port:" VerticalAlignment="Center"/>
+			<ComboBox x:Name="PortComboBox" Width="80" Margin="10,0,0,0" DropDownOpened="PortComboBox_DropDownOpened"/>
+			<TextBlock TextWrapping="Wrap" Text="Baud rate:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+			<TextBox x:Name="BaudTextBox" TextWrapping="NoWrap" Text="9600" Width="80" Margin="10,0,0,0"/>
+			<Button x:Name="OpenCloseButton" Content="Open" Margin="10,0,0,0" Width="40" Click="OpenCloseButton_Click" />
+			<CheckBox x:Name="CheckBoxHexMode" Content="Hex mode" Checked="CheckBoxHexMode_Checked" Unchecked="CheckBoxHexMode_Unchecked" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" />
+			<CheckBox x:Name="CheckBoxAutoInsert" Content="Auto insert" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Checked="CheckBoxAutoInsert_Checked" Unchecked="CheckBoxAutoInsert_Unchecked" />
 
-        </StackPanel>
+		</StackPanel>
+		
+		<TextBox x:Name="CommandTextBox" Grid.Row="2" Grid.ColumnSpan="3"  Margin="10,0,10,10" Width="Auto" Height="Auto" FontFamily="Consolas" FontSize="16" IsUndoEnabled="True" AcceptsReturn="False" AcceptsTab="False" KeyDown="TextBox_KeyDown" PreviewTextInput="TextBox_PreviewTextInput_IsHex" CharacterCasing="Upper" Text="Hex command"/>
 
-        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Height="52" Width="417">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock TextWrapping="Wrap" Text="Log file:" Width="57"/>
-                <TextBox x:Name="LogFileTextBox" TextWrapping="NoWrap" Width="300" Margin="10,0,0,0" IsReadOnly="True"/>
-                <Button x:Name="FileSelectButton" Content="Select" Margin="10,0,0,0" Width="40" Click="FileSelectButton_Click"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  Margin="0,10,0,0">
-                <TextBlock TextWrapping="Wrap" Text="Serial port:" Width="57"/>
-                <ComboBox x:Name="PortComboBox" Width="111" Margin="10,0,0,0" DropDownOpened="PortComboBox_DropDownOpened"/>
-                <TextBlock TextWrapping="Wrap" Text="Baud rate:" Width="57" Margin="10,0,0,0"/>
-                <TextBox x:Name="BaudTextBox" TextWrapping="NoWrap" Text="9600" Width="112" Margin="10,0,0,0"/>
-                <Button x:Name="OpenCloseButton" Content="Open" Margin="10,0,0,0" Width="40" Click="OpenCloseButton_Click"/>
-            </StackPanel>
-        </StackPanel>
-        <Button x:Name="CommandSendButton" Content="Send" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="2,40,12,0" Height="20" Click="CommandSendButton_Click"/>
-    </Grid>
+		<Button x:Name="FileSelectButton" Content="Select" Click="FileSelectButton_Click" Grid.Column="3" Grid.Row="1" Margin="10,10,10,10" />
+		<TextBlock TextWrapping="Wrap" Text="Log file:" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="10,10,10,10" />
+		<TextBox x:Name="LogFileTextBox" TextWrapping="NoWrap" IsReadOnly="True" Grid.Row = "1" Grid.Column="2" Margin="10,10,10,10"/>
+		<Button x:Name="CommandSendButton" Content="Send" Grid.Row="2" Grid.Column="3"  Click="CommandSendButton_Click" Margin="10,0,10,10"/>
+	</Grid>
 </Window>
