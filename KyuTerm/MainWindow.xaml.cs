@@ -241,7 +241,6 @@ namespace KyuTerm
             clipboardTimer = new DispatcherTimer();
             clipboardTimer.Interval = TimeSpan.FromSeconds(1); // Check every second
             clipboardTimer.Tick += ClipboardTimer_Tick;
-            clipboardTimer.Start();
         }
 
         private void ClipboardTimer_Tick(object sender, EventArgs e)
@@ -296,11 +295,13 @@ namespace KyuTerm
         private void CheckBoxAutoInsert_Checked(object sender, RoutedEventArgs e)
         {
             autoInsert = true;
+            clipboardTimer.Start();
         }
 
         private void CheckBoxAutoInsert_Unchecked(object sender, RoutedEventArgs e)
         {
             autoInsert = false;
+            clipboardTimer.Stop();
         }
     }
 }
