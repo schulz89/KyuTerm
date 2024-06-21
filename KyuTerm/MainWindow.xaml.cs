@@ -162,7 +162,15 @@ namespace KyuTerm
                 {
                     serialPort.PortName = PortComboBox.Text;
                     serialPort.BaudRate = baudRate;
-                    serialPort.Open();
+                    try
+                    {
+                        serialPort.Open();
+                    }
+                    catch (Exception)
+                    {
+                    // Do nothing
+                    }
+                    
                 }
             }
 
