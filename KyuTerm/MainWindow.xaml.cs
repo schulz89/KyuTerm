@@ -264,10 +264,17 @@ namespace KyuTerm
             {
                 if (Clipboard.ContainsText())
                 {
-                    string clipboardText = Clipboard.GetText();
-                    if (IsHexPattern(clipboardText))
+                    try
                     {
-                        CommandTextBox.Text = clipboardText;
+                        string clipboardText = Clipboard.GetText();
+                        if (IsHexPattern(clipboardText))
+                        {
+                            CommandTextBox.Text = clipboardText;
+                        }
+                    }
+                    catch (COMException ex) when ((uint)ex.HResult == 0x800401D0)
+                    {
+                        // Could not open clipboard, ignore the exception
                     }
                 }
             }
