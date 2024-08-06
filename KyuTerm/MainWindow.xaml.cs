@@ -147,7 +147,8 @@ namespace KyuTerm
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (saveFileDialog.ShowDialog() == true)
                 LogFileTextBox.Text = saveFileDialog.FileName;
-            writer = new StreamWriter(saveFileDialog.FileName);
+            if(LogFileTextBox.Text != "")
+                writer = new StreamWriter(saveFileDialog.FileName);
         }
 
         private void OpenCloseButton_Click(object sender, RoutedEventArgs e)
