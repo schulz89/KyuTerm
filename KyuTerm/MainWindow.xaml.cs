@@ -52,6 +52,7 @@ namespace KyuTerm
         static SerialPort serialPort;
         bool autoInsert = false;
         private DispatcherTimer clipboardTimer;
+        private StringBuilder lineBuffer = new StringBuilder();
 
         public MainWindow()
         {
@@ -122,16 +123,37 @@ namespace KyuTerm
                 {
                     if (CheckBoxHexMode.IsChecked == false)
                     {
-                        writer.Write(System.Text.Encoding.Default.GetString(buffer));
+                        string receivedText = System.Text.Encoding.Default.GetString(buffer);
+                        lineBuffer.Append(receivedText);
+
+                        string line;
+                        while ((line = ReadLineFromBuffer(lineBuffer)) != null)
+                        {
+                            string timestampedLine = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} : {line}";
+                            writer.WriteLine(timestampedLine);
+                        }
                     }
                     else
                     {
                         String message_print = BitConverter.ToString(buffer).Replace("-", "");
-                        writer.Write(message_print);
+                        string timestampedLine = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {message_print}";
+                        writer.WriteLine(timestampedLine);
                     }
                     writer.Flush();
                 }
             }));
+        }
+
+        private string ReadLineFromBuffer(StringBuilder buffer)
+        {
+            string line = null;
+            int newlineIndex = buffer.ToString().IndexOf(Environment.NewLine);
+            if (newlineIndex >= 0)
+            {
+                line = buffer.ToString(0, newlineIndex);
+                buffer.Remove(0, newlineIndex + Environment.NewLine.Length);
+            }
+            return line;
         }
 
         private void FileSelectButton_Click(object sender, RoutedEventArgs e)
