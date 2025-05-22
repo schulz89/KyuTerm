@@ -170,7 +170,7 @@ namespace KyuTerm
             if (saveFileDialog.ShowDialog() == true)
                 LogFileTextBox.Text = saveFileDialog.FileName;
             if(LogFileTextBox.Text != "")
-                writer = new StreamWriter(saveFileDialog.FileName);
+                writer = new StreamWriter(saveFileDialog.FileName, true);
         }
 
         private void OpenCloseButton_Click(object sender, RoutedEventArgs e)
